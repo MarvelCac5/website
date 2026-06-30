@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caleb Castillo — Technology Portfolio</title>
+  <meta name="description" content="Caleb Castillo — a technology enthusiast at QHSS (NY's #1 high school). Hardware, software, logic, hands-on repair, design, and social media." />
+  <meta name="theme-color" content="#f6f3ec" />
+
+  <!-- Google Fonts: Plus Jakarta Sans (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------- Design Tokens ---------- */
+    :root {
+      --bg:        #f6f3ec;   /* warm off-white, not blinding */
+      --bg-soft:   #efeae0;   /* slightly deeper cream */
+      --surface:   #fffdf8;   /* card surface */
+      --ink:       #2a2a28;   /* near-black warm text */
+      --ink-soft:  #5c5a54;   /* muted text */
+      --line:      #e3ddd0;   /* borders */
+      --brand:     #1f6f6b;   /* deep teal accent */
+      --brand-ink: #15514e;   /* darker teal for hover */
+      --accent:    #d98a3d;   /* warm amber accent */
+      --radius:    16px;
+      --shadow:    0 1px 2px rgba(42,42,40,.04), 0 8px 24px rgba(42,42,40,.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; line-height: 1.2; color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 15px;
+      transition: transform .15s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+      cursor: pointer; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: var(--brand-ink); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+    .btn-ghost:hover { background: var(--surface); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    /* ---------- Navbar ---------- */
+    header.nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(246,243,236,.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .logo { font-family: 'Plus Jakarta Sans'; font-weight: 800; font-size: 20px; letter-spacing: -.5px; }
+    .logo span { color: var(--brand); }
+    .nav-links { display: none; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 15px; font-weight: 500; color: var(--ink-soft); transition: color .2s; }
+    .nav-links a:hover { color: var(--brand); }
+    .nav-cta { display: none; }
+    @media (min-width: 820px) {
+      .nav-links { display: flex; }
+      .nav-cta { display: inline-flex; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 72px 0 56px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+    @media (min-width: 860px) { .hero-grid { grid-template-columns: 1.3fr .9fr; } }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--brand); background: rgba(31,111,107,.08);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(36px, 6vw, 58px); font-weight: 800; letter-spacing: -1px; }
+    .hero h1 em { font-style: normal; color: var(--brand); }
+    .hero p.lead { font-size: 18px; color: var(--ink-soft); margin: 20px 0 28px; max-width: 540px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow);
+    }
+    .hero-card h3 { font-size: 16px; margin-bottom: 16px; }
+    .fact { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .fact:last-child { border-bottom: none; }
+    .fact .ico { color: var(--accent); font-weight: 700; }
+    .fact b { display: block; font-size: 15px; }
+    .fact small { color: var(--ink-soft); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 64px 0; }
+    .section-head { max-width: 620px; margin-bottom: 40px; }
+    .kicker { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+    .section-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.5px; margin: 8px 0 12px; }
+    .section-head p { color: var(--ink-soft); font-size: 17px; }
+
+    .alt-bg { background: var(--bg-soft); }
+
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+    @media (min-width: 800px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+    .about-text p { color: var(--ink-soft); margin-bottom: 16px; font-size: 16px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .traits { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .chip {
+      background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+      padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    }
+
+    /* ---------- Stats row ---------- */
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    @media (min-width: 560px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+    .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; text-align: center; }
+    .stat b { font-family: 'Plus Jakarta Sans'; display: block; font-size: 24px; color: var(--brand); }
+    .stat small { color: var(--ink-soft); font-size: 13px; }
+
+    /* ---------- Skills ---------- */
+    .skills-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 640px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 960px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 26px; box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(42,42,40,.10); }
+    .skill-card .badge {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+      background: rgba(31,111,107,.1); color: var(--brand); margin-bottom: 16px; font-size: 20px;
+    }
+    .skill-card h3 { font-size: 18px; margin-bottom: 10px; }
+    .skill-card ul { list-style: none; }
+    .skill-card li { color: var(--ink-soft); font-size: 14.5px; padding: 4px 0 4px 18px; position: relative; }
+    .skill-card li::before { content: "›"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+    /* ---------- Currently Learning ---------- */
+    .learn-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 760px) { .learn-grid { grid-template-columns: 1fr 1fr; } }
+    .learn-card {
+      position: relative; background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow);
+      border-left: 4px solid var(--brand); transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .learn-card:nth-child(2) { border-left-color: var(--accent); }
+    .learn-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(35,40,38,.12); }
+    .learn-card .when {
+      display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--brand); background: rgba(31,111,107,.1);
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+    }
+    .learn-card:nth-child(2) .when { color: var(--accent); background: rgba(217,138,61,.12); }
+    .learn-card .org { font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 4px; }
+    .learn-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .learn-card p { color: var(--ink-soft); font-size: 15px; }
+    .learn-card .cred {
+      margin-top: 14px; font-size: 13.5px; color: var(--ink); background: var(--bg-soft);
+      border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    }
+
+    /* ---------- Projects ---------- */
+    .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 720px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
+    .project {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .18s ease;
+      display: flex; flex-direction: column;
+    }
+    .project:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(42,42,40,.12); }
+    .project .thumb {
+      height: 150px; background: linear-gradient(135deg, #1f6f6b 0%, #2a8a85 100%);
+      display: grid; place-items: center; color: #fff; font-family: 'Plus Jakarta Sans'; font-weight: 700; font-size: 16px;
+      padding: 16px; text-align: center;
+    }
+    .project:nth-child(2) .thumb { background: linear-gradient(135deg, #d98a3d 0%, #e0a566 100%); }
+    .project:nth-child(3) .thumb { background: linear-gradient(135deg, #3a3a38 0%, #5c5a54 100%); }
+    .project:nth-child(4) .thumb { background: linear-gradient(135deg, #1f6f6b 0%, #d98a3d 100%); }
+    .project:nth-child(5) .thumb { background: linear-gradient(135deg, #2a8a85 0%, #d98a3d 100%); }
+    .project:nth-child(6) .thumb { background: linear-gradient(135deg, #5c5a54 0%, #1f6f6b 100%); }
+    .project .body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .project .meta { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+    .project h3 { font-size: 19px; margin-bottom: 8px; }
+    .project p { color: var(--ink-soft); font-size: 15px; flex: 1; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag { font-size: 12px; font-weight: 600; color: var(--brand); background: rgba(31,111,107,.08); padding: 5px 12px; border-radius: 999px; }
+
+    /* ---------- Design & Branding Gallery ---------- */
+    .gallery {
+      display: grid; grid-template-columns: 1fr; gap: 20px;
+    }
+    @media (min-width: 600px) { .gallery { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 980px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+    .work {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .work:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(42,42,40,.12); }
+    .work .frame {
+      position: relative; aspect-ratio: 4 / 3; background: var(--bg-soft);
+      overflow: hidden; cursor: zoom-in;
+    }
+    .work .frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+    .work .frame:hover img { transform: scale(1.04); }
+    .work .frame .zoom {
+      position: absolute; bottom: 10px; right: 10px; background: rgba(42,42,40,.78); color: #fff;
+      font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 999px; letter-spacing: .03em;
+    }
+    .work .body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .work .org { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+    .work h3 { font-size: 17px; margin-bottom: 8px; }
+    .work p { color: var(--ink-soft); font-size: 14px; flex: 1; }
+    .work .tool { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--brand); }
+    .work .pdf-link {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none;
+    }
+    .work .pdf-link:hover { color: var(--brand-ink); text-decoration: underline; }
+    /* placeholder frame for pieces without an embedded image yet */
+    .work .frame.empty {
+      cursor: default; display: grid; place-items: center; text-align: center; padding: 16px;
+      background: linear-gradient(135deg, var(--bg-soft), var(--bg));
+      color: var(--ink-soft); font-size: 13px;
+    }
+
+    /* ---------- Lightbox ---------- */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(20,20,18,.88); display: none;
+      align-items: center; justify-content: center; padding: 24px; z-index: 100;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 86vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .lightbox .close {
+      position: absolute; top: 18px; right: 22px; background: var(--surface); color: var(--ink);
+      border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 22px; cursor: pointer;
+      line-height: 1; box-shadow: var(--shadow);
+    }
+    .lightbox .close:hover { background: var(--bg-soft); }
+
+    /* ---------- Contact ---------- */
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 40px; box-shadow: var(--shadow); text-align: center; max-width: 720px; margin: 0 auto;
+    }
+    .contact-card h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; margin-bottom: 12px; }
+    .contact-card p { color: var(--ink-soft); font-size: 17px; margin-bottom: 28px; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--line); padding: 32px 0; }
+    .foot-inner { display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; color: var(--ink-soft); font-size: 14px; }
+    @media (min-width: 640px) { .foot-inner { flex-direction: row; justify-content: space-between; text-align: left; } }
+
+    /* utility */
+    .placeholder { color: var(--accent); font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="logo">Caleb<span>.</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#learning">Learning</a>
+        <a href="#design">Design</a>
+        <a href="#projects">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="btn btn-primary nav-cta">Get in touch</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">● Rising Junior · QHSS · Class of 2028</span>
+          <h1>Hi, I'm Caleb Castillo — I build, fix, and <em>figure things out</em>.</h1>
+          <p class="lead">
+            A technology enthusiast at Queens High School for the Sciences at York College
+            (ranked New York's #1 high school by U.S. News). I'm fascinated by hardware and
+            software alike, love hands-on problem solving, and have a real passion for
+            design, business, and social media.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View my work</a>
+            <a href="#contact" class="btn btn-ghost">Contact me</a>
+            <!-- (insert here) link your resume / brag sheet PDF below -->
+            <a href="#" class="btn btn-ghost">Resume <span class="placeholder">(add link)</span></a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Quick facts">
+          <h3>Quick facts</h3>
+          <div class="fact"><span class="ico">◆</span><div><b>School</b><small>QHSS at York College — NY's #1 High School (U.S. News)</small></div></div>
+          <div class="fact"><span class="ico">◆</span><div><b>GPA</b><small>96 · Consistent Honor Roll · Principal's Honor Roll</small></div></div>
+          <div class="fact"><span class="ico">◆</span><div><b>Focus</b><small>Hardware, software & all things tech</small></div></div>
+          <div class="fact"><span class="ico">◆</span><div><b>Languages</b><small>English (fluent) · Spanish (near-fluent)</small></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="alt-bg">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">About me</span>
+          <h2>A curious mind that loves to make things work.</h2>
+          <p>A little about who I am and what drives me.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I'm Caleb, a rising junior at Queens High School for the Sciences at York College.
+              I've always been the person who wants to know <em>how</em> something works —
+              then take it apart, understand it, and put it back together better. That curiosity
+              shows up everywhere from building PCs and repairing electronics to picking up
+              speedcubing.
+            </p>
+            <p>
+              On the creative side, I design posters and infographics in the Adobe Creative Cloud,
+              edit short- and long-form video, and have built an online presence through content
+              creation on Twitch and YouTube. I'm also a black belt in karate, play soccer, badminton,
+              and run track — I like staying disciplined and putting in the work.
+            </p>
+            <p>
+              Alongside the technical and creative work, I'm genuinely interested in business,
+              branding, and social media — how ideas reach people and grow. I bring leadership,
+              adaptability, and a focus on quality to every team I'm part of.
+            </p>
+            <p>
+              Outside of school, you'll find me on the soccer field or deep in a game —
+              gaming is where a lot of my tech curiosity started, and soccer keeps me
+              competitive, disciplined, and working with a team.
+            </p>
+            <p class="placeholder">
+              (Insert here) Optional: add one more personal sentence — a goal you're working toward
+              or what you're most proud of.
+            </p>
+          </div>
+          <div>
+            <h3 style="font-size:17px;margin-bottom:14px;">What I'm about</h3>
+            <div class="traits">
+              <span class="chip">Logical</span>
+              <span class="chip">Hands-on repair</span>
+              <span class="chip">Leadership</span>
+              <span class="chip">Creative</span>
+              <span class="chip">Communication</span>
+              <span class="chip">Adaptable</span>
+              <span class="chip">Organized</span>
+              <span class="chip">Passion-driven</span>
+              <span class="chip">Strong work ethic</span>
+              <span class="chip">Soccer</span>
+              <span class="chip">Gaming</span>
+            </div>
+
+            <div class="stats">
+              <div class="stat"><b>96</b><small>GPA</small></div>
+              <div class="stat"><b>1300</b><small>PSAT</small></div>
+              <div class="stat"><b>6+</b><small>AP courses</small></div>
+              <div class="stat"><b>Black Belt</b><small>Karate</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Skills</span>
+          <h2>What I bring to the table.</h2>
+          <p>A mix of technical, creative, and hands-on abilities.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="badge">✦</div>
+            <h3>Design &amp; Creative</h3>
+            <ul>
+              <li>Adobe Creative Cloud (Photoshop, Illustrator, Acrobat, Premiere Pro)</li>
+              <li>Graphic design — posters &amp; infographics (Canva, Photoshop)</li>
+              <li>Video editing (Premiere Pro, CapCut)</li>
+              <li>College Graphic Design &amp; Digital Photography (dual enrollment)</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="badge">⌨</div>
+            <h3>Technology &amp; Code</h3>
+            <ul>
+              <li>PC building, hardware diagnostics &amp; electronics repair</li>
+              <li>Web development (HTML, CSS, JavaScript) — Volta NYC</li>
+              <li>Roblox / Luau scripting &amp; game logic</li>
+              <li>Engineering CAD — 3D modeling from blueprints</li>
+              <li>Cryptography &amp; cipher-cracking (Codebusters)</li>
+              <li>Godot game engine · AI &amp; cybersecurity (incoming)</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="badge">◉</div>
+            <h3>Business &amp; Social Media</h3>
+            <ul>
+              <li>Content creation &amp; online branding (Twitch, YouTube)</li>
+              <li>Social media organization &amp; advertising committees</li>
+              <li>Community building &amp; eSports coaching</li>
+              <li>Event promotion &amp; public relations</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="badge">◇</div>
+            <h3>Soft Skills</h3>
+            <ul>
+              <li>Leadership &amp; communication</li>
+              <li>Adaptability to limited resources</li>
+              <li>Focus on quality &amp; strong work ethic</li>
+              <li>Confident, entertaining &amp; organized</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="badge">◈</div>
+            <h3>Languages</h3>
+            <ul>
+              <li>English — Fluent</li>
+              <li>Spanish — Near-fluent</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <div class="badge">＋</div>
+            <h3 class="placeholder">(Insert skill)</h3>
+            <ul>
+              <li class="placeholder">(Insert here) Add another skill, tool, or certification you'd like to highlight.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CURRENTLY LEARNING ================= -->
+    <section id="learning">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Currently Learning</span>
+          <h2>Always leveling up.</h2>
+          <p>Programs and courses I'm taking this summer to grow my skills in AI, security, and game development.</p>
+        </div>
+        <div class="learn-grid">
+          <div class="learn-card">
+            <span class="when">Summer 2026</span>
+            <div class="org">Vaughn College</div>
+            <h3>Principles of AI &amp; Cybersecurity</h3>
+            <p>Diving into the fundamentals of artificial intelligence alongside core cybersecurity concepts — learning how intelligent systems work and how to keep them secure.</p>
+          </div>
+          <div class="learn-card">
+            <span class="when">Summer 2026</span>
+            <div class="org">StoryQuest Camp · Endless Access × ASU</div>
+            <h3>Game Design in Godot</h3>
+            <p>Designing original game levels, creating my own characters, shipping a completed project in the Godot engine, and presenting it in a virtual showcase.</p>
+            <div class="cred">
+              <strong>Microcredential:</strong> Earn an industry-recognized microcredential through the collaboration between Endless Access and the ASU Endless Games and Learning Lab.
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:24px;color:var(--ink-soft);font-size:15px;">
+          <span class="placeholder">(Insert here)</span> Add any other courses, camps, or certifications you'd like to feature.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= DESIGN & BRANDING ================= -->
+    <section id="design" class="alt-bg">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Design &amp; Branding</span>
+          <h2>Real design work for real organizations.</h2>
+          <p>
+            Posters, merch, event branding, and brand identity I've created using Adobe Illustrator,
+            Photoshop, and Express &mdash; for school clubs, committees, and college coursework.
+            Click any piece to view it larger.
+          </p>
+        </div>
+
+        <div class="gallery">
+
+          <!-- Science Olympiad Hoodie -->
+          <article class="work">
+            <div class="frame" data-full="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hoodie%201080x1080-d8trGiKdCPTV350WU60y2ir5BYKanP.png">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hoodie%201080x1080-d8trGiKdCPTV350WU60y2ir5BYKanP.png" alt="Science Olympiad 2025-2026 hoodie promotional poster with a purple dinosaur skull and microscope illustration, pricing, and an order QR code" loading="lazy" />
+              <span class="zoom">Click to zoom</span>
+            </div>
+            <div class="body">
+              <span class="org">QHSS Science Olympiad</span>
+              <h3>Science Olympiad Hoodie Drop</h3>
+              <p>Merch promo for the 2025&ndash;2026 hoodie fundraiser &mdash; custom illustration, pricing tiers, and a scan-to-order QR for a limited school drop.</p>
+              <span class="tool">Adobe &middot; Merch &amp; Poster Design</span>
+            </div>
+          </article>
+
+          <!-- Hackathon IG Carousel -->
+          <article class="work">
+            <div class="frame" data-full="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HACKATHON%20IG%20Carousel%20Post-jkceLXtPKCuuNVfJkVYok1EVxsiDix.png">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/HACKATHON%20IG%20Carousel%20Post-jkceLXtPKCuuNVfJkVYok1EVxsiDix.png" alt="QHSS Hackathon 2026 Instagram post in a pixel-art style with a trophy, cardinal mascot, registration QR code, and prize details" loading="lazy" />
+              <span class="zoom">Click to zoom</span>
+            </div>
+            <div class="body">
+              <span class="org">QHSS Hackathon Committee</span>
+              <h3>Hackathon 2026 Social Campaign</h3>
+              <p>Retro pixel-art Instagram post promoting registration &mdash; built to drive sign-ups with prizes, perks, and a clear scan-to-register call to action.</p>
+              <span class="tool">Adobe &middot; Social Media Graphic</span>
+            </div>
+          </article>
+
+          <!-- Hackathon Rejected Logo -->
+          <article class="work">
+            <div class="frame" data-full="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hackathon%20Logo%20%28Rejected%29-Mrwaj1LP9YJ9kYdKEqIb7p7I5kavpm.png">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hackathon%20Logo%20%28Rejected%29-Mrwaj1LP9YJ9kYdKEqIb7p7I5kavpm.png" alt="Concept logo of a red pixelated cardinal over a Matrix-style green binary code background" loading="lazy" />
+              <span class="zoom">Click to zoom</span>
+            </div>
+            <div class="body">
+              <span class="org">QHSS Hackathon Committee</span>
+              <h3>Cardinal Logo Concept</h3>
+              <p>An early logo direction &mdash; a pixel cardinal over Matrix-style binary. Not the final pick, but it shows my iterative process and willingness to explore.</p>
+              <span class="tool">Adobe &middot; Logo / Concept</span>
+            </div>
+          </article>
+
+          <!-- NYS Flag Redesign (PDF) -->
+          <article class="work">
+            <div class="frame empty">
+              <span class="placeholder">(Insert image here)</span> Export a PNG/JPG of the flag and replace this placeholder.
+            </div>
+            <div class="body">
+              <span class="org">College Graphic Design</span>
+              <h3>New York State Flag Redesign</h3>
+              <p>A simpler, modern NYS flag built around iconic landmarks &mdash; the Statue of Liberty (Curvature + Pathfinder tools), Empire State Building, and a Hudson River stripe.</p>
+              <a class="pdf-link" href="#" target="_blank" rel="noopener">View artist statement (PDF) <span class="placeholder">(add link)</span></a>
+            </div>
+          </article>
+
+          <!-- Three Kings Day (PDF) -->
+          <article class="work">
+            <div class="frame empty">
+              <span class="placeholder">(Insert image here)</span> Export a slide image and replace this placeholder.
+            </div>
+            <div class="body">
+              <span class="org">LatinX Culture Club</span>
+              <h3>Three Kings Day Infographic</h3>
+              <p>A cultural explainer on D&iacute;a de los Reyes Magos &mdash; traditions, customs, and significance &mdash; designed to share Latin heritage with the school community.</p>
+              <a class="pdf-link" href="#" target="_blank" rel="noopener">View design (PDF) <span class="placeholder">(add link)</span></a>
+            </div>
+          </article>
+
+          <!-- College Graphic Design Portfolio (PDF) -->
+          <article class="work">
+            <div class="frame empty">
+              <span class="placeholder">(Insert cover image here)</span> Export a portfolio cover and replace this placeholder.
+            </div>
+            <div class="body">
+              <span class="org">College Graphic Design</span>
+              <h3>Full Design Portfolio</h3>
+              <p>A dual-enrollment portfolio: a surrealism collage, a Bauhaus "Unity" poster, the "Push." QHSS mural, and a pixel-art VGHF nonprofit logo redesign &mdash; each with an artist statement.</p>
+              <a class="pdf-link" href="#" target="_blank" rel="noopener">View full portfolio (PDF) <span class="placeholder">(add link)</span></a>
+            </div>
+          </article>
+
+        </div>
+
+        <p style="margin-top:24px;color:var(--ink-soft);font-size:15px;">
+          <span class="placeholder">(Insert here)</span> Add any other posters, branding, or design pieces you'd like to showcase.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE / PROJECTS ================= -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Experience &amp; Projects</span>
+          <h2>Things I've built &amp; worked on.</h2>
+          <p>Real work from school, internships, and personal projects. Add screenshots or links anytime.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project">
+            <div class="thumb">Web Development</div>
+            <div class="body">
+              <span class="meta">Volta NYC</span>
+              <h3>Website Development</h3>
+              <p>Built and worked on websites at Volta NYC, turning ideas into functional, well-structured web pages.</p>
+              <div class="tag-row"><span class="tag">Web</span><span class="tag">Software</span></div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="thumb">Historical Transcription</div>
+            <div class="body">
+              <span class="meta">Smithsonian</span>
+              <h3>Document Transcription</h3>
+              <p>Transcribed historical documents for the Smithsonian, helping digitize and preserve records with accuracy and attention to detail.</p>
+              <div class="tag-row"><span class="tag">Research</span><span class="tag">Detail</span></div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="thumb">Science Olympiad</div>
+            <div class="body">
+              <span class="meta">QHSS · 2025–Present</span>
+              <h3>Codebusters &amp; Engineering CAD</h3>
+              <p>Competed in Codebusters, decrypting cryptograms with my team, and speed-replicated blueprints into 3D models in Engineering CAD. Also served on the advertisement committee designing fundraising posters.</p>
+              <div class="tag-row"><span class="tag">CAD</span><span class="tag">Cryptography</span><span class="tag">Design</span></div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="thumb">Content Creation</div>
+            <div class="body">
+              <span class="meta">Twitch &amp; YouTube</span>
+              <h3>Content &amp; Rocket League Coaching</h3>
+              <p>Built and engaged an online community for entertainment, edited short- and long-form video, and established a personal brand. Also mentored and coached players in Rocket League.</p>
+              <div class="tag-row"><span class="tag">Branding</span><span class="tag">Video</span><span class="tag">Community</span></div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="thumb">Design &amp; Social Media</div>
+            <div class="body">
+              <span class="meta">LatinX Club · Hackathon Committee</span>
+              <h3>Infographics &amp; Event Promotion</h3>
+              <p>As LatinX Club Secretary and a member of the QHSS Hackathon social media committee, I designed infographics and helped organize schoolwide events to drive attendance.</p>
+              <div class="tag-row"><span class="tag">Adobe</span><span class="tag">Social Media</span></div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="thumb">Community &amp; Leadership</div>
+            <div class="body">
+              <span class="meta">SYEP @ RDRC · Art Club</span>
+              <h3>Leadership &amp; Community Work</h3>
+              <p>Through SYEP at RDRC I developed plans to improve local communities and networked with peers. As former Art Club President, I helped organize the school art show and designed promotional posters.</p>
+              <div class="tag-row"><span class="tag">Leadership</span><span class="tag">Community</span></div>
+            </div>
+          </article>
+        </div>
+
+        <p style="margin-top:24px;color:var(--ink-soft);font-size:15px;">
+          <span class="placeholder">(Insert here)</span> Want to feature a specific project with images or a live link? Add it here and I'll style it to match.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-card">
+          <span class="kicker">Contact</span>
+          <h2>Let's connect.</h2>
+          <p>Open to opportunities, collaborations, and conversations about tech, design, and business.</p>
+          <div class="contact-actions">
+            <a href="mailto:marvelcac5@gmail.com" class="btn btn-primary">marvelcac5@gmail.com</a>
+            <a href="tel:+13474971457" class="btn btn-ghost">(347) 497-1457</a>
+            <a href="https://www.youtube.com/@MarvelCac5" target="_blank" rel="noopener" class="btn btn-ghost">YouTube</a>
+            <a href="https://www.twitch.tv/marvelcacrl" target="_blank" rel="noopener" class="btn btn-ghost">Twitch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap foot-inner">
+      <span>© <span id="year"></span> Caleb Castillo · Technology Portfolio</span>
+      <span>Queens, NY</span>
+    </div>
+  </footer>
+
+  <!-- ================= LIGHTBOX ================= -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged design image">
+    <button class="close" id="lightboxClose" aria-label="Close image">&times;</button>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox: click any design frame with a full-size image to zoom
+    (function () {
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightboxImg');
+      var lbClose = document.getElementById('lightboxClose');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.work .frame[data-full]').forEach(function (frame) {
+        frame.addEventListener('click', function () {
+          var img = frame.querySelector('img');
+          open(frame.getAttribute('data-full'), img ? img.alt : '');
+        });
+      });
+
+      lbClose.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+</body>
+</html>
